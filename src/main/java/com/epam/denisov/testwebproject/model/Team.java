@@ -109,4 +109,15 @@ public class Team implements Serializable {
     public void setChampionship(Championship championship) {
         this.championship = championship;
     }
+
+    public void setValues(Team data) {
+        this.name = data.name;
+        this.games = data.games;
+        this.wins = data.wins;
+        this.draws = data.draws;
+        this.losses = data.losses;
+        this.scored = data.scored;
+        this.missed = data.missed;
+        this.points = data.points;
+    }
 }

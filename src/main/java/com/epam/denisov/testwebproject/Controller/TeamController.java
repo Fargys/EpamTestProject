@@ -7,12 +7,7 @@ import com.epam.denisov.testwebproject.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @Controller
@@ -57,8 +52,8 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String save(@RequestParam String teamName, @RequestParam String champId, Model model) {
-        teamService.save(teamName, champId);
+    public String save(@ModelAttribute("team") Team team, @RequestParam String champId, Model model) {
+        teamService.save(team, champId);
 
         Championship currentChampionship = champService.findOne(champId);
         Set<Team> teams = currentChampionship.getParticipants();
@@ -79,8 +74,8 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/update/{teamId}", method = RequestMethod.POST)
-    public String update(@PathVariable("teamId") String teamId, @RequestParam String newName, Model model) {
-        teamService.update(teamId, newName);
+    public String update(@PathVariable("teamId") String teamId, @ModelAttribute("team") Team team, Model model) {
+        teamService.update(team, teamId);
 
         Championship currentChampionship = teamService.findOne(teamId).getChampionship();
         Set<Team> teams = currentChampionship.getParticipants();

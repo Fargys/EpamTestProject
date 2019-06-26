@@ -31,8 +31,8 @@ public class ChampionshipController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-     public String save(@RequestParam String champName, Model model) {
-        champService.save(champName);
+     public String save(@ModelAttribute Championship champ, Model model) {
+        champService.save(champ.getName());
 
         List<Championship> championships = champService.findAll();
 

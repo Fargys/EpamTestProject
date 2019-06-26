@@ -27,10 +27,6 @@ public class TeamService {
         return teamRepository.findOne(currentId);
     }
 
-    public List<Team> findAll(String champId) {
-        return null;
-    }
-
     public void delete(String teamId) {
         Long id = Long.parseLong(teamId, 10);
         teamRepository.delete(id);
@@ -42,9 +38,20 @@ public class TeamService {
         teamRepository.save(newTeam);
     }
 
+    public void save(Team team, String champId) {
+        team.setChampionship(champService.findOne(champId));
+        teamRepository.save(team);
+    }
+
     public void update(String teamId, String newName) {
         Team team = this.findOne(teamId);
         team.setName(newName);
+        teamRepository.save(team);
+    }
+
+    public void update(Team data, String teamId) {
+        Team team = this.findOne(teamId);
+        team.setValues(data);
         teamRepository.save(team);
     }
 }
