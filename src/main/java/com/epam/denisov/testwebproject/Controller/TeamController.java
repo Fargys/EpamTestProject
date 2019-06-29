@@ -2,6 +2,7 @@ package com.epam.denisov.testwebproject.Controller;
 
 import com.epam.denisov.testwebproject.Service.ChampionshipService;
 import com.epam.denisov.testwebproject.Service.TeamService;
+import com.epam.denisov.testwebproject.dto.ResultDTO;
 import com.epam.denisov.testwebproject.model.Championship;
 import com.epam.denisov.testwebproject.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +85,14 @@ public class TeamController {
         model.addAttribute("teams", teams);
 
         return "teamList";
+    }
+
+    @RequestMapping(value = "play", method = RequestMethod.POST)
+    public void play(@ModelAttribute("result") ResultDTO result, Model model) {
+//        statService.playGame(result);
+
+        System.out.println(result);
+
+//        return "teamList";
     }
 }
