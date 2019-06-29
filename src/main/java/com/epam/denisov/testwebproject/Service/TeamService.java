@@ -40,6 +40,10 @@ public class TeamService {
         teamRepository.save(team);
     }
 
+    public void save(Team team) {
+        teamRepository.save(team);
+    }
+
      public void update(TeamDTO teamDTO) {
         Team team = this.findOne(teamDTO.getId());
         team.setValues(teamDTO, team.getChampionship());

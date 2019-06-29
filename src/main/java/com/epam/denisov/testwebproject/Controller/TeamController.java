@@ -1,6 +1,7 @@
 package com.epam.denisov.testwebproject.Controller;
 
 import com.epam.denisov.testwebproject.Service.ChampionshipService;
+import com.epam.denisov.testwebproject.Service.StatisticsService;
 import com.epam.denisov.testwebproject.Service.TeamService;
 import com.epam.denisov.testwebproject.dto.ResultDTO;
 import com.epam.denisov.testwebproject.dto.TeamDTO;
@@ -18,11 +19,13 @@ public class TeamController {
 
     private final TeamService teamService;
     private final ChampionshipService champService;
+    private final StatisticsService statService;
 
     @Autowired
-    public TeamController(ChampionshipService champService, TeamService teamService) {
+    public TeamController(ChampionshipService champService, TeamService teamService, StatisticsService statService) {
         this.teamService = teamService;
         this.champService = champService;
+        this.statService = statService;
     }
 
     @RequestMapping(value = { "/list/{champId}" }, method = RequestMethod.GET)
@@ -88,13 +91,16 @@ public class TeamController {
         return "teamList";
     }
 
-    //TODO: /play
-//    @RequestMapping(value = "play", method = RequestMethod.POST)
-//    public void play(@ModelAttribute("result") ResultDTO result, Model model) {
-//        statService.playGame(result);
-//
-//        System.out.println(result);
-//
-//        return "teamList";
-//    }
+    @RequestMapping(value = "play", method = RequestMethod.POST)
+    public String play(@ModelAttribute("result") ResultDTO resultDTO, Model model) {
+        statService.playGame(resultDTO);
+
+        Championship currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
+        Set<Team> teams = currentChampionship.getParticipants();
+
+        model.addAttribute("currentChampionship", currentChampionship);
+        model.addAttribute("teams", teams);
+
+        return "teamList";
+    }
 }
