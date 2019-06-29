@@ -1,6 +1,7 @@
 package com.epam.denisov.testwebproject.Controller;
 
 import com.epam.denisov.testwebproject.Service.ChampionshipService;
+import com.epam.denisov.testwebproject.dto.ChampionshipDTO;
 import com.epam.denisov.testwebproject.model.Championship;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +32,8 @@ public class ChampionshipController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-     public String save(@ModelAttribute Championship champ, Model model) {
-        champService.save(champ.getName());
+     public String save(@ModelAttribute ChampionshipDTO champ, Model model) {
+        champService.save(champ);
 
         List<Championship> championships = champService.findAll();
 
@@ -60,9 +61,9 @@ public class ChampionshipController {
         return "editChamp";
     }
 
-    @RequestMapping(value = "/update/{champId}", method = RequestMethod.POST)
-    public String update(@PathVariable("champId") String champId, @RequestParam String newName, Model model) {
-        champService.update(champId, newName);
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(@ModelAttribute ChampionshipDTO champDTO, Model model) {
+        champService.update(champDTO);
 
         List<Championship> championships = champService.findAll();
 

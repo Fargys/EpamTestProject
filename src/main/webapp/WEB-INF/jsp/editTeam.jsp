@@ -7,7 +7,8 @@
 <body>
 <h1>Edit for ${currentTeam.name}</h1>
 
-<form action="${pageContext.request.contextPath}/team/update/${currentTeam.id}" method="post">
+<form action="${pageContext.request.contextPath}/team/update" method="post">
+    <input type="hidden" name="id" value="${currentTeam.id}"><br/>
     Enter name:   <input type="text" name="name" value="${currentTeam.name}"><br/>
     Enter games:  <input type="number" name="games" value="${currentTeam.games}"><br/>
     Enter wins:   <input type="number" name="wins" value="${currentTeam.wins}"><br/>

@@ -1,5 +1,7 @@
 package com.epam.denisov.testwebproject.model;
 
+import com.epam.denisov.testwebproject.dto.TeamDTO;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -110,14 +112,16 @@ public class Team implements Serializable {
         this.championship = championship;
     }
 
-    public void setValues(Team data) {
-        this.name = data.name;
-        this.games = data.games;
-        this.wins = data.wins;
-        this.draws = data.draws;
-        this.losses = data.losses;
-        this.scored = data.scored;
-        this.missed = data.missed;
-        this.points = data.points;
+    public void setValues(TeamDTO teamDTO, Championship champ) {
+        if(teamDTO.getId() != null) this.id = Long.parseLong(teamDTO.getId(), 10);
+        if(teamDTO.getName() != null) this.name = teamDTO.getName();
+        if(teamDTO.getGames() != null) this.games = Integer.parseInt(teamDTO.getGames());
+        if(teamDTO.getWins() != null) this.wins = Integer.parseInt(teamDTO.getWins());
+        if(teamDTO.getDraws() != null) this.draws = Integer.parseInt(teamDTO.getDraws());
+        if(teamDTO.getLosses() != null) this.losses = Integer.parseInt(teamDTO.getLosses());
+        if(teamDTO.getScored() != null) this.scored = Integer.parseInt(teamDTO.getScored());
+        if(teamDTO.getMissed() != null) this.missed = Integer.parseInt(teamDTO.getMissed());
+        if(teamDTO.getPoints() != null) this.points = Integer.parseInt(teamDTO.getPoints());
+        if(champ != null) this.championship = champ;
     }
 }

@@ -70,7 +70,6 @@
         <br/>
 
         <form action="${pageContext.request.contextPath}/team/create" method="post">
-            <input type="hidden" name="champId" value="${currentChampionship.id}" />
             Enter name:   <input type="text" name="name" value="teamName"><br/>
             Enter games:  <input type="number" name="games" value="0"><br/>
             Enter wins:   <input type="number" name="wins" value="0"><br/>
@@ -79,6 +78,7 @@
             Enter scored: <input type="number" name="scored" value="0"><br/>
             Enter missed: <input type="number" name="missed" value="0"><br/>
             Enter points: <input type="number" name="points" value="0"><br/>
+            <input type="hidden" name="champId" value="${currentChampionship.id}" />
 
             <button type="submit">Create team</button>
         </form>

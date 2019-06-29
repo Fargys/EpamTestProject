@@ -7,8 +7,9 @@
 <body>
 <h1>Edit for ${currentChampionship.name}</h1>
 
-<form action="${pageContext.request.contextPath}/championship/update/${currentChampionship.id}" method="post">
-    Enter name: <input type="text" name="newName" value="${currentChampionship.name}">
+<form action="${pageContext.request.contextPath}/championship/update" method="post">
+    <input type="hidden" name="id" value="${currentChampionship.id}">
+    Enter name: <input type="text" name="name" value="${currentChampionship.name}">
     <button type="submit">Edit</button>
 </form>
 </body>

@@ -3,6 +3,7 @@ package com.epam.denisov.testwebproject.Controller;
 import com.epam.denisov.testwebproject.Service.ChampionshipService;
 import com.epam.denisov.testwebproject.Service.TeamService;
 import com.epam.denisov.testwebproject.dto.ResultDTO;
+import com.epam.denisov.testwebproject.dto.TeamDTO;
 import com.epam.denisov.testwebproject.model.Championship;
 import com.epam.denisov.testwebproject.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,10 +54,10 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String save(@ModelAttribute("team") Team team, @RequestParam String champId, Model model) {
-        teamService.save(team, champId);
+    public String save(@ModelAttribute TeamDTO teamDTO, Model model) {
+        teamService.save(teamDTO);
 
-        Championship currentChampionship = champService.findOne(champId);
+        Championship currentChampionship = champService.findOne(teamDTO.getChampId());
         Set<Team> teams = currentChampionship.getParticipants();
 
         model.addAttribute("currentChampionship", currentChampionship);
@@ -74,11 +75,11 @@ public class TeamController {
         return "editTeam";
     }
 
-    @RequestMapping(value = "/update/{teamId}", method = RequestMethod.POST)
-    public String update(@PathVariable("teamId") String teamId, @ModelAttribute("team") Team team, Model model) {
-        teamService.update(team, teamId);
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(@ModelAttribute TeamDTO teamDTO, Model model) {
+        teamService.update(teamDTO);
 
-        Championship currentChampionship = teamService.findOne(teamId).getChampionship();
+        Championship currentChampionship = teamService.findOne(teamDTO.getId()).getChampionship();
         Set<Team> teams = currentChampionship.getParticipants();
 
         model.addAttribute("currentChampionship", currentChampionship);
@@ -87,12 +88,13 @@ public class TeamController {
         return "teamList";
     }
 
-    @RequestMapping(value = "play", method = RequestMethod.POST)
-    public void play(@ModelAttribute("result") ResultDTO result, Model model) {
+    //TODO: /play
+//    @RequestMapping(value = "play", method = RequestMethod.POST)
+//    public void play(@ModelAttribute("result") ResultDTO result, Model model) {
 //        statService.playGame(result);
-
-        System.out.println(result);
-
+//
+//        System.out.println(result);
+//
 //        return "teamList";
-    }
+//    }
 }

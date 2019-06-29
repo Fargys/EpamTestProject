@@ -1,6 +1,7 @@
 package com.epam.denisov.testwebproject.Service;
 
 import com.epam.denisov.testwebproject.Repository.ChampionshipRepository;
+import com.epam.denisov.testwebproject.dto.ChampionshipDTO;
 import com.epam.denisov.testwebproject.model.Championship;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +30,6 @@ public class ChampionshipService {
         return champRepository.findOne(champId);
     }
 
-    public Championship findByName(String name) {
-        return champRepository.findByName(name);
-    }
-
     public List<Championship> findAll() {
         Iterable<Championship> iterable = champRepository.findAll();
         List<Championship> result = new ArrayList<>();
@@ -41,31 +38,20 @@ public class ChampionshipService {
         return result;
     }
 
-    //save
-    public void save(Championship newChamp) {
-        champRepository.save(newChamp);
-    }
-
-    public void save(String champName) {
-        Championship champ = new Championship(champName);
+    public void save(ChampionshipDTO champDTO) {
+        Championship champ = new Championship(champDTO.getName());
         champRepository.save(champ);
     }
 
-    //delete
     public void delete(String champId) {
         Long id = Long.parseLong(champId, 10);
         champRepository.delete(id);
     }
 
-    public void delete(Long champId) {
-        champRepository.delete(champId);
-    }
+    public void update(ChampionshipDTO champDTO) {
+        Championship ch = this.findOne(champDTO.getId());
+        ch.setName(champDTO.getName());
 
-    //update
-    public void update(String champId, String newName) {
-        Championship champ = this.findOne(champId);
-        champ.setName(newName);
-
-        this.save(champ);
+        champRepository.save(ch);
     }
 }
