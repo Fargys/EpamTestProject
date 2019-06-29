@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "team")
-public class Team implements Serializable {
+public class Team implements Comparable, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -123,5 +123,28 @@ public class Team implements Serializable {
         if(teamDTO.getMissed() != null) this.missed = Integer.parseInt(teamDTO.getMissed());
         if(teamDTO.getPoints() != null) this.points = Integer.parseInt(teamDTO.getPoints());
         if(champ != null) this.championship = champ;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Team team = (Team) o;
+
+        if(this.points > team.points) return -1;
+        else if(this.points < team.points) return 1;
+
+        if(this.wins > team.wins) return -1;
+        else if(this.wins < team.wins) return 1;
+
+
+        int thisDifference = this.scored - this.missed;
+        int teamDifference = team.scored - team.missed;
+
+        if(thisDifference > teamDifference) return -1;
+        else if(thisDifference < teamDifference) return 1;
+
+        if(this.games < team.games) return -1;
+        else if(this.games > team.games) return 1;
+
+        return 0;
     }
 }

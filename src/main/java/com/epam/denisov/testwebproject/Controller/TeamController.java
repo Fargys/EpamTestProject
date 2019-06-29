@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.Set;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/team")
@@ -32,7 +33,7 @@ public class TeamController {
     public String list(Model model, @PathVariable("champId") String champId) {
 
         Championship currentChampionship = champService.findOne(champId);
-        Set<Team> teams = currentChampionship.getParticipants();
+        List<Team> teams = currentChampionship.getParticipants();
 
         model.addAttribute("currentChampionship", currentChampionship);
         model.addAttribute("teams", teams);
@@ -48,7 +49,7 @@ public class TeamController {
         teamService.delete(teamId);
 
         Championship currentChampionship = champService.findOne(champId);
-        Set<Team> teams = currentChampionship.getParticipants();
+        List<Team> teams = currentChampionship.getParticipants();
 
         model.addAttribute("currentChampionship", currentChampionship);
         model.addAttribute("teams", teams);
@@ -61,7 +62,7 @@ public class TeamController {
         teamService.save(teamDTO);
 
         Championship currentChampionship = champService.findOne(teamDTO.getChampId());
-        Set<Team> teams = currentChampionship.getParticipants();
+        List<Team> teams = currentChampionship.getParticipants();
 
         model.addAttribute("currentChampionship", currentChampionship);
         model.addAttribute("teams", teams);
@@ -83,7 +84,7 @@ public class TeamController {
         teamService.update(teamDTO);
 
         Championship currentChampionship = teamService.findOne(teamDTO.getId()).getChampionship();
-        Set<Team> teams = currentChampionship.getParticipants();
+        List<Team> teams = currentChampionship.getParticipants();
 
         model.addAttribute("currentChampionship", currentChampionship);
         model.addAttribute("teams", teams);
@@ -96,7 +97,7 @@ public class TeamController {
         statService.playGame(resultDTO);
 
         Championship currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
-        Set<Team> teams = currentChampionship.getParticipants();
+        List<Team> teams = currentChampionship.getParticipants();
 
         model.addAttribute("currentChampionship", currentChampionship);
         model.addAttribute("teams", teams);

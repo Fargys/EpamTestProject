@@ -3,8 +3,9 @@ package com.epam.denisov.testwebproject.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
+import static java.util.Collections.*;
 
 @Entity
 @Table(name = "championship")
@@ -21,7 +22,7 @@ public class Championship implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "championship", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Team> participants;
+    private List<Team> participants;
 
     // Constructors
     public Championship() {
@@ -40,11 +41,12 @@ public class Championship implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public Set<Team> getParticipants() {
-        if(participants == null) participants = new HashSet<>();
+    public List<Team> getParticipants() {
+        if(participants == null) participants = new ArrayList<>();
+        sort(participants);
         return participants;
     }
-    public void setParticipants(Set<Team> participants) {
+    public void setParticipants(List<Team> participants) {
         this.participants = participants;
     }
 }
