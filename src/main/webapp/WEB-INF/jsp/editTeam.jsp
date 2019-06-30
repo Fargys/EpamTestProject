@@ -3,7 +3,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-<head><title>Edit for championship</title></head>
+<head>
+    <title>Edit for team</title>
+</head>
 <body>
 <h1>Edit for ${currentTeam.name}</h1>
 
@@ -17,7 +19,7 @@
     Enter scored: <input type="number" name="scored" value="${currentTeam.scored}"><br/>
     Enter missed: <input type="number" name="missed" value="${currentTeam.missed}"><br/>
     Enter points: <input type="number" name="points" value="${currentTeam.points}"><br/>
-
+    <input type="hidden" name="champId" value="${currentChampionship.id}"><br/>
     <button type="submit">Edit</button>
 </form>
 </body>

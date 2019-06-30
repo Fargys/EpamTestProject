@@ -23,7 +23,7 @@ public class ChampionshipService {
     public Championship findOne(String champId) {
         Long currentId = Long.parseLong(champId, 10);
 
-        return champRepository.findOne(currentId);
+        return this.findOne(currentId);
     }
 
     public Championship findOne(Long champId) {
@@ -53,5 +53,10 @@ public class ChampionshipService {
         ch.setName(champDTO.getName());
 
         champRepository.save(ch);
+    }
+
+    public boolean hasChampionship(ChampionshipDTO champDTO) {
+        Championship champ = champRepository.findByName(champDTO.getName());
+        return champ != null;
     }
 }

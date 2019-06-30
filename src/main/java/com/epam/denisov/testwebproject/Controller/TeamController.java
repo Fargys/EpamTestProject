@@ -59,10 +59,22 @@ public class TeamController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String save(@ModelAttribute TeamDTO teamDTO, Model model) {
+        Championship currentChampionship;
+
+        if(teamService.hasTeam(teamDTO)) {
+            String message = "Team already exists";
+            currentChampionship = champService.findOne(teamDTO.getChampId());
+
+            model.addAttribute("message", message);
+            model.addAttribute("currentChampionship", currentChampionship);
+
+            return "teamError";
+        }
+
         teamService.save(teamDTO);
 
-        Championship currentChampionship = champService.findOne(teamDTO.getChampId());
-        List<Team> teams = currentChampionship.getParticipants();
+        List<Team> teams = teamService.findAll(teamDTO.getChampId());
+        currentChampionship = teams.get(0).getChampionship();
 
         model.addAttribute("currentChampionship", currentChampionship);
         model.addAttribute("teams", teams);
@@ -73,18 +85,32 @@ public class TeamController {
     @RequestMapping(value = "/edit/{teamId}", method = RequestMethod.GET)
     public String edit(@PathVariable("teamId") String teamId, Model model) {
         Team currentTeam = teamService.findOne(teamId);
+        Championship currentChampionship = currentTeam.getChampionship();
 
         model.addAttribute("currentTeam", currentTeam);
+        model.addAttribute("currentChampionship", currentChampionship);
 
         return "editTeam";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@ModelAttribute TeamDTO teamDTO, Model model) {
+        Championship currentChampionship;
+
+        if(teamService.hasTeam(teamDTO)) {
+            String message = "Team already exists";
+            currentChampionship = champService.findOne(teamDTO.getChampId());
+
+            model.addAttribute("message", message);
+            model.addAttribute("currentChampionship", currentChampionship);
+
+            return "teamError";
+        }
+
         teamService.update(teamDTO);
 
-        Championship currentChampionship = teamService.findOne(teamDTO.getId()).getChampionship();
-        List<Team> teams = currentChampionship.getParticipants();
+        List<Team> teams = teamService.findAll(teamDTO.getChampId());
+        currentChampionship = teams.get(0).getChampionship();
 
         model.addAttribute("currentChampionship", currentChampionship);
         model.addAttribute("teams", teams);
@@ -94,9 +120,21 @@ public class TeamController {
 
     @RequestMapping(value = "play", method = RequestMethod.POST)
     public String play(@ModelAttribute("result") ResultDTO resultDTO, Model model) {
+        Championship currentChampionship;
+
+        if(resultDTO.getHomeTeamId().equals(resultDTO.getGuestTeamId())) {
+            String message = "You chose the same team";
+            currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
+
+            model.addAttribute("message", message);
+            model.addAttribute("currentChampionship", currentChampionship);
+
+            return "teamError";
+        }
+
         statService.playGame(resultDTO);
 
-        Championship currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
+        currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
         List<Team> teams = currentChampionship.getParticipants();
 
         model.addAttribute("currentChampionship", currentChampionship);

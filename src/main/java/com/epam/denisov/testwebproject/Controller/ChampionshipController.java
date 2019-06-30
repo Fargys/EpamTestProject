@@ -32,8 +32,14 @@ public class ChampionshipController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-     public String save(@ModelAttribute ChampionshipDTO champ, Model model) {
-        champService.save(champ);
+     public String save(@ModelAttribute ChampionshipDTO champDTO, Model model) {
+        if(champService.hasChampionship(champDTO)) {
+            String message = "Championship already exists";
+            model.addAttribute("message", message);
+            return "champError";
+        }
+
+        champService.save(champDTO);
 
         List<Championship> championships = champService.findAll();
 
@@ -63,6 +69,11 @@ public class ChampionshipController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@ModelAttribute ChampionshipDTO champDTO, Model model) {
+        if(champService.hasChampionship(champDTO)) {
+            String message = "Championship already exists";
+            model.addAttribute("message", message);
+            return "champError";
+        }
         champService.update(champDTO);
 
         List<Championship> championships = champService.findAll();

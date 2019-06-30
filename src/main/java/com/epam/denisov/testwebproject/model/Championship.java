@@ -49,4 +49,11 @@ public class Championship implements Serializable {
     public void setParticipants(List<Team> participants) {
         this.participants = participants;
     }
+
+    @Override
+    public String toString() {
+        return "Championship{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

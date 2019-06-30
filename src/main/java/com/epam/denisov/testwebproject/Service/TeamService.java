@@ -49,4 +49,15 @@ public class TeamService {
         team.setValues(teamDTO, team.getChampionship());
         teamRepository.save(team);
     }
+
+    public boolean hasTeam(TeamDTO teamDTO) {
+        Championship champ = champService.findOne(teamDTO.getChampId());
+        Team team = teamRepository.findByName(teamDTO.getName());
+        return champ.getParticipants().contains(team);
+    }
+
+    public List<Team> findAll(String champId) {
+        Championship champ = champService.findOne(champId);
+        return teamRepository.findAllByChampionship(champ);
+    }
 }

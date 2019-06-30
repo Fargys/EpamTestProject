@@ -147,4 +147,11 @@ public class Team implements Comparable, Serializable {
 
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
