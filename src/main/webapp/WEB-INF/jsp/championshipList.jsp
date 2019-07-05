@@ -33,7 +33,7 @@
     <br/><br/>
 
     <form action="${pageContext.request.contextPath}/championship/create" method="post">
-        Enter name: <input type="text" name="name" value="Name">
+        Enter name: <input type="text" name="name" required value="Name">
         <button type="submit">Create</button>
     </form>
 

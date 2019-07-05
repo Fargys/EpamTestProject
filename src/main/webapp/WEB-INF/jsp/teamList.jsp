@@ -61,8 +61,8 @@
             </select>
             <br/>
 
-            Enter score - <input type="number" name="homeGoals" value="0">
-            :<input type="number" name="guestGoals" value="0">
+            Enter score - <input type="number" name="homeGoals" min="0" value="0">
+            :<input type="number" name="guestGoals" min="0" value="0">
             <br/>
 
             <button type="submit">Play game</button>
@@ -70,14 +70,14 @@
         <br/>
 
         <form action="${pageContext.request.contextPath}/team/create" method="post">
-            Enter name:   <input type="text" name="name" value="teamName"><br/>
-            Enter games:  <input type="number" name="games" value="0"><br/>
-            Enter wins:   <input type="number" name="wins" value="0"><br/>
-            Enter draws:  <input type="number" name="draws" value="0"><br/>
-            Enter losses: <input type="number" name="losses" value="0"><br/>
-            Enter scored: <input type="number" name="scored" value="0"><br/>
-            Enter missed: <input type="number" name="missed" value="0"><br/>
-            Enter points: <input type="number" name="points" value="0"><br/>
+            Enter name:   <input type="text" name="name" required value="teamName"><br/>
+            Enter games:  <input type="number" name="games" min="0" value="0"><br/>
+            Enter wins:   <input type="number" name="wins" min="0" value="0"><br/>
+            Enter draws:  <input type="number" name="draws" min="0" value="0"><br/>
+            Enter losses: <input type="number" name="losses" min="0" value="0"><br/>
+            Enter scored: <input type="number" name="scored" min="0" value="0"><br/>
+            Enter missed: <input type="number" name="missed" min="0" value="0"><br/>
+            Enter points: <input type="number" name="points" min="0" value="0"><br/>
             <input type="hidden" name="champId" value="${currentChampionship.id}" />
 
             <button type="submit">Create team</button>

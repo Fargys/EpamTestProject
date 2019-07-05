@@ -9,7 +9,7 @@
 
 <form action="${pageContext.request.contextPath}/championship/update" method="post">
     <input type="hidden" name="id" value="${currentChampionship.id}">
-    Enter name: <input type="text" name="name" value="${currentChampionship.name}">
+    Enter name: <input type="text" name="name" required value="${currentChampionship.name}">
     <button type="submit">Edit</button>
 </form>
 </body>
