@@ -3,6 +3,7 @@ package com.epam.denisov.testwebproject.Controller;
 import com.epam.denisov.testwebproject.Service.ChampionshipService;
 import com.epam.denisov.testwebproject.Service.StatisticsService;
 import com.epam.denisov.testwebproject.Service.TeamService;
+import com.epam.denisov.testwebproject.Service.Validator;
 import com.epam.denisov.testwebproject.dto.ResultDTO;
 import com.epam.denisov.testwebproject.dto.TeamDTO;
 import com.epam.denisov.testwebproject.model.Championship;
@@ -21,12 +22,15 @@ public class TeamController {
     private final TeamService teamService;
     private final ChampionshipService champService;
     private final StatisticsService statService;
+    private final Validator validator;
 
     @Autowired
-    public TeamController(ChampionshipService champService, TeamService teamService, StatisticsService statService) {
+    public TeamController(ChampionshipService champService, TeamService teamService
+            , StatisticsService statService, Validator validator) {
         this.teamService = teamService;
         this.champService = champService;
         this.statService = statService;
+        this.validator = validator;
     }
 
     @RequestMapping(value = { "/list/{champId}" }, method = RequestMethod.GET)
@@ -61,25 +65,25 @@ public class TeamController {
     public String save(@ModelAttribute TeamDTO teamDTO, Model model) {
         Championship currentChampionship;
 
-        if(teamService.hasTeam(teamDTO)) {
-            String message = "Team already exists";
-            currentChampionship = champService.findOne(teamDTO.getChampId());
+        if(validator.teamIsValid(teamDTO)) {
+            teamService.save(teamDTO);
 
-            model.addAttribute("message", message);
+            List<Team> teams = teamService.findAll(teamDTO.getChampId());
+            currentChampionship = teams.get(0).getChampionship();
+
             model.addAttribute("currentChampionship", currentChampionship);
+            model.addAttribute("teams", teams);
 
-            return "teamError";
+            return "teamList";
         }
 
-        teamService.save(teamDTO);
+        String message = "Team already exists";
+        currentChampionship = champService.findOne(teamDTO.getChampId());
 
-        List<Team> teams = teamService.findAll(teamDTO.getChampId());
-        currentChampionship = teams.get(0).getChampionship();
-
+        model.addAttribute("message", message);
         model.addAttribute("currentChampionship", currentChampionship);
-        model.addAttribute("teams", teams);
 
-        return "teamList";
+        return "teamError";
     }
 
     @RequestMapping(value = "/edit/{teamId}", method = RequestMethod.GET)
@@ -97,49 +101,49 @@ public class TeamController {
     public String update(@ModelAttribute TeamDTO teamDTO, Model model) {
         Championship currentChampionship;
 
-        if(teamService.hasTeam(teamDTO)) {
-            String message = "Team already exists";
-            currentChampionship = champService.findOne(teamDTO.getChampId());
+        if(validator.teamIsValid(teamDTO)) {
+            teamService.update(teamDTO);
 
-            model.addAttribute("message", message);
+            List<Team> teams = teamService.findAll(teamDTO.getChampId());
+            currentChampionship = teams.get(0).getChampionship();
+
             model.addAttribute("currentChampionship", currentChampionship);
+            model.addAttribute("teams", teams);
 
-            return "teamError";
+            return "teamList";
         }
 
-        teamService.update(teamDTO);
+        String message = "Team already exists";
+        currentChampionship = champService.findOne(teamDTO.getChampId());
 
-        List<Team> teams = teamService.findAll(teamDTO.getChampId());
-        currentChampionship = teams.get(0).getChampionship();
-
+        model.addAttribute("message", message);
         model.addAttribute("currentChampionship", currentChampionship);
-        model.addAttribute("teams", teams);
 
-        return "teamList";
+        return "teamError";
     }
 
     @RequestMapping(value = "play", method = RequestMethod.POST)
     public String play(@ModelAttribute("result") ResultDTO resultDTO, Model model) {
         Championship currentChampionship;
 
-        if(resultDTO.getHomeTeamId().equals(resultDTO.getGuestTeamId())) {
-            String message = "You chose the same team";
+        if(validator.rivalsIsValid(resultDTO)) {
+            statService.playGame(resultDTO);
+
             currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
+            List<Team> teams = currentChampionship.getParticipants();
 
-            model.addAttribute("message", message);
             model.addAttribute("currentChampionship", currentChampionship);
+            model.addAttribute("teams", teams);
 
-            return "teamError";
+            return "teamList";
         }
 
-        statService.playGame(resultDTO);
-
+        String message = "You chose the same team";
         currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
-        List<Team> teams = currentChampionship.getParticipants();
 
+        model.addAttribute("message", message);
         model.addAttribute("currentChampionship", currentChampionship);
-        model.addAttribute("teams", teams);
 
-        return "teamList";
+        return "teamError";
     }
 }

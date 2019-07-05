@@ -1,6 +1,7 @@
 package com.epam.denisov.testwebproject.Controller;
 
 import com.epam.denisov.testwebproject.Service.ChampionshipService;
+import com.epam.denisov.testwebproject.Service.Validator;
 import com.epam.denisov.testwebproject.dto.ChampionshipDTO;
 import com.epam.denisov.testwebproject.model.Championship;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import java.util.List;
 public class ChampionshipController {
 
     private final ChampionshipService champService;
+    private final Validator validator;
 
     @Autowired
-    public ChampionshipController(ChampionshipService champService) {
+    public ChampionshipController(ChampionshipService champService, Validator validator) {
         this.champService = champService;
+        this.validator = validator;
     }
 
 
@@ -33,19 +36,20 @@ public class ChampionshipController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
      public String save(@ModelAttribute ChampionshipDTO champDTO, Model model) {
-        if(champService.hasChampionship(champDTO)) {
-            String message = "Championship already exists";
-            model.addAttribute("message", message);
-            return "champError";
+        if(validator.champIsValid(champDTO)) {
+            champService.save(champDTO);
+
+            List<Championship> championships = champService.findAll();
+
+            model.addAttribute("championships", championships);
+
+            return "championshipList";
         }
 
-        champService.save(champDTO);
+        String message = "Championship already exists";
+        model.addAttribute("message", message);
 
-        List<Championship> championships = champService.findAll();
-
-        model.addAttribute("championships", championships);
-
-        return "championshipList";
+        return "champError";
     }
 
     @RequestMapping(value = "/delete/{champId}", method = RequestMethod.GET)
@@ -69,17 +73,19 @@ public class ChampionshipController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@ModelAttribute ChampionshipDTO champDTO, Model model) {
-        if(champService.hasChampionship(champDTO)) {
-            String message = "Championship already exists";
-            model.addAttribute("message", message);
-            return "champError";
+        if(validator.champIsValid(champDTO)) {
+            champService.update(champDTO);
+
+            List<Championship> championships = champService.findAll();
+
+            model.addAttribute("championships", championships);
+
+            return "championshipList";
         }
-        champService.update(champDTO);
 
-        List<Championship> championships = champService.findAll();
+        String message = "Championship already exists";
+        model.addAttribute("message", message);
 
-        model.addAttribute("championships", championships);
-
-        return "championshipList";
+        return "champError";
     }
 }

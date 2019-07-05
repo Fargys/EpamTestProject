@@ -14,13 +14,12 @@ public class TeamService {
     private final ChampionshipService champService;
     private final TeamRepository teamRepository;
 
-
     @Autowired
     public TeamService(ChampionshipService championshipService, TeamRepository teamRepository) {
         this.champService = championshipService;
         this.teamRepository = teamRepository;
-
     }
+
 
     public Team findOne(String teamId) {
         Long currentId = Long.parseLong(teamId, 10);
@@ -28,9 +27,13 @@ public class TeamService {
         return teamRepository.findOne(currentId);
     }
 
-    public void delete(String teamId) {
-        Long id = Long.parseLong(teamId, 10);
-        teamRepository.delete(id);
+    public Team findByName(String name) {
+        return teamRepository.findByName(name);
+    }
+
+    public List<Team> findAll(String champId) {
+        Championship champ = champService.findOne(champId);
+        return teamRepository.findAllByChampionship(champ);
     }
 
     public void save(TeamDTO teamDTO) {
@@ -44,20 +47,14 @@ public class TeamService {
         teamRepository.save(team);
     }
 
+    public void delete(String teamId) {
+        Long id = Long.parseLong(teamId, 10);
+        teamRepository.delete(id);
+    }
+
      public void update(TeamDTO teamDTO) {
         Team team = this.findOne(teamDTO.getId());
         team.setValues(teamDTO, team.getChampionship());
         teamRepository.save(team);
-    }
-
-    public boolean hasTeam(TeamDTO teamDTO) {
-        Championship champ = champService.findOne(teamDTO.getChampId());
-        Team team = teamRepository.findByName(teamDTO.getName());
-        return champ.getParticipants().contains(team);
-    }
-
-    public List<Team> findAll(String champId) {
-        Championship champ = champService.findOne(champId);
-        return teamRepository.findAllByChampionship(champ);
     }
 }
