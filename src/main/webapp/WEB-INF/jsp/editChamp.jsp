@@ -3,14 +3,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-<head><title>Edit for championship</title></head>
+<head>
+    <title>Edit for championship</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
+</head>
+
 <body>
 <h1>Edit for ${currentChampionship.name}</h1>
 
-<form action="${pageContext.request.contextPath}/championship/update" method="post">
+<form class="champ-edit-form" action="${pageContext.request.contextPath}/championship/update" method="post">
+
     <input type="hidden" name="id" value="${currentChampionship.id}">
-    Enter name: <input type="text" name="name" required value="${currentChampionship.name}">
-    <button type="submit">Edit</button>
+
+    <fieldset>
+        <label for="newName">Enter name:</label>
+        <input type="text" name="name" id="newName" required value="${currentChampionship.name}">
+
+        <input type="submit" class="btn" value="Edit">
+    </fieldset>
 </form>
+
 </body>
 </html>

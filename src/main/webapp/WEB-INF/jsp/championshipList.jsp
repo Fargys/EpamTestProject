@@ -11,15 +11,15 @@
 
 <body>
 <h1>Championships List</h1>
+<br/>
 
-<br/><br/>
 <div>
-    <table border="1">
-
+    <table>
         <tr>
-            <th>Championship name</th>
+            <th>Name</th>
+            <th colspan="2">Actions</th>
         </tr>
-        <jsp:useBean id="championships" scope="request" type="java.util.List"/>
+
         <c:forEach  items="${championships}" var ="championship">
             <tr>
                 <td><a href="${pageContext.request.contextPath}/team/list/${championship.id}"> ${championship.name} </a></td>
@@ -29,15 +29,19 @@
         </c:forEach>
 
     </table>
-
-    <br/><br/>
-
-    <form action="${pageContext.request.contextPath}/championship/create" method="post">
-        Enter name: <input type="text" name="name" required value="Name">
-        <button type="submit">Create</button>
-    </form>
-
 </div>
+
+<br/>
+
+<form class="champ-create-form" action="${pageContext.request.contextPath}/championship/create" method="post">
+    <fieldset>
+        <label for="champName">Enter championship name:</label>
+        <input type="text" name="name" id="champName" required>
+
+        <input type="submit" class="btn" value="Create">
+    </fieldset>
+</form>
+
 </body>
 
 </html>

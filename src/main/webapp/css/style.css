@@ -1,0 +1,155 @@
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    border-collapse: collapse;
+    text-align: center;
+
+    width: 50%;
+}
+
+th{
+    background: gray;
+    color: white;
+    padding: 10px 20px;
+
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+
+}
+
+td {
+    padding: 10px 20px;
+
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+
+}
+
+tr:nth-child(even) {
+    background: white;
+}
+
+tr:nth-child(odd) {
+    background: lightgray;
+}
+
+form {
+    width: 50%;
+}
+
+.champ-create-form label {
+    width:180px;
+    margin-top: 3px;
+    display:inline-block;
+    float:left;
+    padding:3px;
+}
+
+.champ-create-form input {
+    width:190px;
+    height:24px;
+    padding-left: 2px;
+}
+
+.champ-create-form .btn {
+    color: black;
+    height:30px;
+    float:right;
+    text-decoration: none;
+}
+
+.champ-edit-form label {
+    width:180px;
+    margin-top: 3px;
+    display:inline-block;
+    float:left;
+    padding:3px;
+}
+
+.champ-edit-form input {
+    width:190px;
+    height:30px;
+    padding-left: 2px;
+}
+
+.champ-edit-form .btn {
+    color: black;
+    height:30px;
+    float:right;
+    text-decoration: none;
+}
+
+.team-create-form label {
+    width:180px;
+    margin-top: 3px;
+    display:inline-block;
+    float:left;
+    padding:3px;
+}
+
+.team-create-form input {
+    width:190px;
+    height:20px;
+    padding-left: 2px;
+    margin: 2px;
+}
+
+.team-create-form .btn {
+    color: black;
+    height:30px;
+    float:right;
+    text-decoration: none;
+}
+
+.play-game-form label {
+    width:180px;
+    margin-top: 3px;
+    display:inline-block;
+    float:left;
+    padding:3px;
+}
+
+.play-game-form select {
+    width:190px;
+    height:20px;
+    padding-left: 2px;
+    margin: 2px;
+}
+
+.play-game-form input {
+    width:190px;
+    height:20px;
+    padding-left: 2px;
+    margin: 2px;
+}
+
+.play-game-form .btn {
+    color: black;
+    height:30px;
+    float:right;
+    text-decoration: none;
+}
+
+.team-edit-form label {
+    width:180px;
+    display:inline-block;
+    float:left;
+    padding:3px;
+}
+
+.team-edit-form input {
+    width:190px;
+    height:20px;
+    padding-left: 2px;
+}
+
+.team-edit-form .btn {
+    color: black;
+    height:30px;
+    float:right;
+    text-decoration: none;
+}
+
+
