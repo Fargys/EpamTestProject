@@ -24,7 +24,7 @@ public class TeamService {
     public Team findOne(String teamId) {
         Long currentId = Long.parseLong(teamId, 10);
 
-        return teamRepository.findOne(currentId);
+        return teamRepository.findById(currentId).orElse(null);
     }
 
     public Team findByName(String name) {
@@ -49,7 +49,7 @@ public class TeamService {
 
     public void delete(String teamId) {
         Long id = Long.parseLong(teamId, 10);
-        teamRepository.delete(id);
+        teamRepository.deleteById(id);
     }
 
      public void update(TeamDTO teamDTO) {

@@ -27,7 +27,7 @@ public class ChampionshipService {
     }
 
     public Championship findOne(Long champId) {
-        return champRepository.findOne(champId);
+        return champRepository.findById(champId).orElse(null);
     }
 
     public Championship findByName(String name) {
@@ -49,7 +49,7 @@ public class ChampionshipService {
 
     public void delete(String champId) {
         Long id = Long.parseLong(champId, 10);
-        champRepository.delete(id);
+        champRepository.deleteById(id);
     }
 
     public void update(ChampionshipDTO champDTO) {
