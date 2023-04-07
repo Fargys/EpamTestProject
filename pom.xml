@@ -6,11 +6,11 @@
 
 
 	<groupId>com.epam.denisov</groupId>
-	<artifactId>epamtestproject</artifactId>
+	<artifactId>soccerstat</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>EpamTestProject</name>
+	<name>SoccerStat</name>
 
 	<properties>
 		<java.version>14</java.version>
