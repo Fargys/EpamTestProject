@@ -1,9 +1,9 @@
-package com.epam.denisov.testwebproject.dto;
+package com.denisov.repository;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class TeamDTO {
+public class TeamRepository {
     private String id;
     private String name;
     private String games;

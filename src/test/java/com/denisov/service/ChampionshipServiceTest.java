@@ -1,28 +1,11 @@
-package com.epam.denisov.testwebproject.Service;
+package com.denisov.service;
 
-import com.epam.denisov.testwebproject.TestWebProjectApplication;
-import com.epam.denisov.testwebproject.model.Championship;
-import com.epam.denisov.testwebproject.model.Team;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.denisov.service.ChampionshipService;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.*;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {TestWebProjectApplication.class})
-@WebAppConfiguration(value = "src/main/resources")
-@Transactional
-@DirtiesContext
+@SpringBootTest
 public class ChampionshipServiceTest {
 
     @Autowired

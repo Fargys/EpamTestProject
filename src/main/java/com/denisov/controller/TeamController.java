@@ -1,13 +1,13 @@
-package com.epam.denisov.testwebproject.Controller;
+package com.denisov.controller;
 
-import com.epam.denisov.testwebproject.Service.ChampionshipService;
-import com.epam.denisov.testwebproject.Service.StatisticsService;
-import com.epam.denisov.testwebproject.Service.TeamService;
-import com.epam.denisov.testwebproject.Service.Validator;
-import com.epam.denisov.testwebproject.dto.ResultDTO;
-import com.epam.denisov.testwebproject.dto.TeamDTO;
-import com.epam.denisov.testwebproject.model.Championship;
-import com.epam.denisov.testwebproject.model.Team;
+import com.denisov.service.StatisticsService;
+import com.denisov.model.Championship;
+import com.denisov.service.ChampionshipService;
+import com.denisov.service.TeamService;
+import com.denisov.service.Validator;
+import com.denisov.repository.ResultRepository;
+import com.denisov.repository.TeamRepository;
+import com.denisov.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,13 +62,13 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String save(@ModelAttribute TeamDTO teamDTO, Model model) {
+    public String save(@ModelAttribute TeamRepository teamRepository, Model model) {
         Championship currentChampionship;
 
-        if(validator.teamIsValid(teamDTO)) {
-            teamService.save(teamDTO);
+        if(validator.teamIsValid(teamRepository)) {
+            teamService.save(teamRepository);
 
-            List<Team> teams = teamService.findAll(teamDTO.getChampId());
+            List<Team> teams = teamService.findAll(teamRepository.getChampId());
             currentChampionship = teams.get(0).getChampionship();
 
             model.addAttribute("currentChampionship", currentChampionship);
@@ -78,7 +78,7 @@ public class TeamController {
         }
 
         String message = "Team already exists";
-        currentChampionship = champService.findOne(teamDTO.getChampId());
+        currentChampionship = champService.findOne(teamRepository.getChampId());
 
         model.addAttribute("message", message);
         model.addAttribute("currentChampionship", currentChampionship);
@@ -98,13 +98,13 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@ModelAttribute TeamDTO teamDTO, Model model) {
+    public String update(@ModelAttribute TeamRepository teamRepository, Model model) {
         Championship currentChampionship;
 
-        if(validator.teamIsValid(teamDTO)) {
-            teamService.update(teamDTO);
+        if(validator.teamIsValid(teamRepository)) {
+            teamService.update(teamRepository);
 
-            List<Team> teams = teamService.findAll(teamDTO.getChampId());
+            List<Team> teams = teamService.findAll(teamRepository.getChampId());
             currentChampionship = teams.get(0).getChampionship();
 
             model.addAttribute("currentChampionship", currentChampionship);
@@ -114,7 +114,7 @@ public class TeamController {
         }
 
         String message = "Team already exists";
-        currentChampionship = champService.findOne(teamDTO.getChampId());
+        currentChampionship = champService.findOne(teamRepository.getChampId());
 
         model.addAttribute("message", message);
         model.addAttribute("currentChampionship", currentChampionship);
@@ -123,13 +123,13 @@ public class TeamController {
     }
 
     @RequestMapping(value = "play", method = RequestMethod.POST)
-    public String play(@ModelAttribute("result") ResultDTO resultDTO, Model model) {
+    public String play(@ModelAttribute("result") ResultRepository resultRepository, Model model) {
         Championship currentChampionship;
 
-        if(validator.rivalsIsValid(resultDTO)) {
-            statService.playGame(resultDTO);
+        if(validator.rivalsIsValid(resultRepository)) {
+            statService.playGame(resultRepository);
 
-            currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
+            currentChampionship = teamService.findOne(resultRepository.getHomeTeamId()).getChampionship();
             List<Team> teams = currentChampionship.getParticipants();
 
             model.addAttribute("currentChampionship", currentChampionship);
@@ -139,7 +139,7 @@ public class TeamController {
         }
 
         String message = "You chose the same team";
-        currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
+        currentChampionship = teamService.findOne(resultRepository.getHomeTeamId()).getChampionship();
 
         model.addAttribute("message", message);
         model.addAttribute("currentChampionship", currentChampionship);

@@ -1,7 +1,7 @@
-package com.epam.denisov.testwebproject.Service;
+package com.denisov.service;
 
-import com.epam.denisov.testwebproject.dto.ResultDTO;
-import com.epam.denisov.testwebproject.model.Team;
+import com.denisov.repository.ResultRepository;
+import com.denisov.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +20,11 @@ public class StatisticsService {
         this.teamService = teamService;
     }
 
-    public void playGame(ResultDTO resultDTO) {
-        Team homeTeam = teamService.findOne(resultDTO.getHomeTeamId());
-        Team guestTeam = teamService.findOne(resultDTO.getGuestTeamId());
-        int homeGoals = resultDTO.getHomeGoals();
-        int guestGoals= resultDTO.getGuestGoals();
+    public void playGame(ResultRepository resultRepository) {
+        Team homeTeam = teamService.findOne(resultRepository.getHomeTeamId());
+        Team guestTeam = teamService.findOne(resultRepository.getGuestTeamId());
+        int homeGoals = resultRepository.getHomeGoals();
+        int guestGoals= resultRepository.getGuestGoals();
 
         homeTeam.setGames(homeTeam.getGames() + ONE_VALUE);
         guestTeam.setGames(guestTeam.getGames() + ONE_VALUE);

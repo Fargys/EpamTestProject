@@ -1,9 +1,9 @@
-package com.epam.denisov.testwebproject.dto;
+package com.denisov.repository;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResultDTO {
+public class ResultRepository {
     String homeTeamId;
     String guestTeamId;
     int homeGoals;

@@ -1,9 +1,9 @@
-package com.epam.denisov.testwebproject.Controller;
+package com.denisov.controller;
 
-import com.epam.denisov.testwebproject.Service.ChampionshipService;
-import com.epam.denisov.testwebproject.Service.Validator;
-import com.epam.denisov.testwebproject.dto.ChampionshipDTO;
-import com.epam.denisov.testwebproject.model.Championship;
+import com.denisov.model.Championship;
+import com.denisov.service.ChampionshipService;
+import com.denisov.service.Validator;
+import com.denisov.repository.ChampionshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +35,7 @@ public class ChampionshipController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-     public String save(@ModelAttribute ChampionshipDTO champDTO, Model model) {
+     public String save(@ModelAttribute ChampionshipRepository champDTO, Model model) {
         if(validator.champIsValid(champDTO)) {
             champService.save(champDTO);
 
@@ -72,7 +72,7 @@ public class ChampionshipController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@ModelAttribute ChampionshipDTO champDTO, Model model) {
+    public String update(@ModelAttribute ChampionshipRepository champDTO, Model model) {
         if(validator.champIsValid(champDTO)) {
             champService.update(champDTO);
 

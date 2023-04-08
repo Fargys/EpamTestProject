@@ -1,6 +1,6 @@
-package com.epam.denisov.testwebproject.model;
+package com.denisov.model;
 
-import com.epam.denisov.testwebproject.dto.TeamDTO;
+import com.denisov.repository.TeamRepository;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -112,16 +112,16 @@ public class Team implements Comparable, Serializable {
         this.championship = championship;
     }
 
-    public void setValues(TeamDTO teamDTO, Championship champ) {
-        if(teamDTO.getId() != null) this.id = Long.parseLong(teamDTO.getId(), 10);
-        if(teamDTO.getName() != null) this.name = teamDTO.getName();
-        if(teamDTO.getGames() != null) this.games = Integer.parseInt(teamDTO.getGames());
-        if(teamDTO.getWins() != null) this.wins = Integer.parseInt(teamDTO.getWins());
-        if(teamDTO.getDraws() != null) this.draws = Integer.parseInt(teamDTO.getDraws());
-        if(teamDTO.getLosses() != null) this.losses = Integer.parseInt(teamDTO.getLosses());
-        if(teamDTO.getScored() != null) this.scored = Integer.parseInt(teamDTO.getScored());
-        if(teamDTO.getMissed() != null) this.missed = Integer.parseInt(teamDTO.getMissed());
-        if(teamDTO.getPoints() != null) this.points = Integer.parseInt(teamDTO.getPoints());
+    public void setValues(TeamRepository teamRepository, Championship champ) {
+        if(teamRepository.getId() != null) this.id = Long.parseLong(teamRepository.getId(), 10);
+        if(teamRepository.getName() != null) this.name = teamRepository.getName();
+        if(teamRepository.getGames() != null) this.games = Integer.parseInt(teamRepository.getGames());
+        if(teamRepository.getWins() != null) this.wins = Integer.parseInt(teamRepository.getWins());
+        if(teamRepository.getDraws() != null) this.draws = Integer.parseInt(teamRepository.getDraws());
+        if(teamRepository.getLosses() != null) this.losses = Integer.parseInt(teamRepository.getLosses());
+        if(teamRepository.getScored() != null) this.scored = Integer.parseInt(teamRepository.getScored());
+        if(teamRepository.getMissed() != null) this.missed = Integer.parseInt(teamRepository.getMissed());
+        if(teamRepository.getPoints() != null) this.points = Integer.parseInt(teamRepository.getPoints());
         if(champ != null) this.championship = champ;
     }
 

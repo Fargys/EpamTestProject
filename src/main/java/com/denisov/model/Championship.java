@@ -1,4 +1,4 @@
-package com.epam.denisov.testwebproject.model;
+package com.denisov.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
