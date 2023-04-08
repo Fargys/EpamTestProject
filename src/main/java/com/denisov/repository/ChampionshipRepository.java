@@ -1,30 +1,10 @@
 package com.denisov.repository;
 
-import org.springframework.stereotype.Component;
+import com.denisov.entity.Championship;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-@Component
-public class ChampionshipRepository {
-    private String id;
-    private String name;
-
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "ChampionshipDTO{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
+@Repository
+public interface ChampionshipRepository extends CrudRepository<Championship, Long> {
+    Championship findByName(String name);
 }

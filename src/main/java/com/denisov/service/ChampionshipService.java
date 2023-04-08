@@ -1,8 +1,8 @@
 package com.denisov.service;
 
-import com.denisov.dao.ChampionshipDAO;
-import com.denisov.model.Championship;
 import com.denisov.repository.ChampionshipRepository;
+import com.denisov.entity.Championship;
+import com.denisov.dto.ChampionshipDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.List;
 @Service
 public class ChampionshipService {
 
-    private final ChampionshipDAO champRepository;
+    private final ChampionshipRepository champRepository;
 
     @Autowired
-    public ChampionshipService(ChampionshipDAO champRepository) {
+    public ChampionshipService(ChampionshipRepository champRepository) {
         this.champRepository = champRepository;
     }
 
@@ -42,7 +42,7 @@ public class ChampionshipService {
         return result;
     }
 
-    public void save(ChampionshipRepository champDTO) {
+    public void save(ChampionshipDTO champDTO) {
         Championship champ = new Championship(champDTO.getName());
         champRepository.save(champ);
     }
@@ -52,7 +52,7 @@ public class ChampionshipService {
         champRepository.deleteById(id);
     }
 
-    public void update(ChampionshipRepository champDTO) {
+    public void update(ChampionshipDTO champDTO) {
         Championship ch = this.findOne(champDTO.getId());
         ch.setName(champDTO.getName());
 

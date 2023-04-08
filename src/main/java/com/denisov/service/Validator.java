@@ -1,10 +1,10 @@
 package com.denisov.service;
 
-import com.denisov.model.Championship;
-import com.denisov.repository.ChampionshipRepository;
-import com.denisov.repository.ResultRepository;
-import com.denisov.repository.TeamRepository;
-import com.denisov.model.Team;
+import com.denisov.entity.Championship;
+import com.denisov.dto.ChampionshipDTO;
+import com.denisov.dto.ResultDTO;
+import com.denisov.dto.TeamDTO;
+import com.denisov.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,18 +20,18 @@ public class Validator {
         this.teamService = teamService;
     }
 
-    public boolean champIsValid(ChampionshipRepository champDTO){
+    public boolean champIsValid(ChampionshipDTO champDTO){
         Championship champ = champService.findByName(champDTO.getName());
         return champ == null;
     }
 
-    public boolean teamIsValid(TeamRepository teamRepository){
-        Championship champ = champService.findOne(teamRepository.getChampId());
-        Team team = teamService.findByName(teamRepository.getName());
+    public boolean teamIsValid(TeamDTO teamDTO){
+        Championship champ = champService.findOne(teamDTO.getChampId());
+        Team team = teamService.findByName(teamDTO.getName());
         return !champ.getParticipants().contains(team);
     }
 
-    public boolean rivalsIsValid(ResultRepository resultRepository){
-        return !resultRepository.getHomeTeamId().equals(resultRepository.getGuestTeamId());
+    public boolean rivalsIsValid(ResultDTO resultDTO){
+        return !resultDTO.getHomeTeamId().equals(resultDTO.getGuestTeamId());
     }
 }

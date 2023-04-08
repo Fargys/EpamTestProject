@@ -1,9 +1,9 @@
 package com.denisov.service;
 
-import com.denisov.dao.TeamDAO;
-import com.denisov.model.Championship;
 import com.denisov.repository.TeamRepository;
-import com.denisov.model.Team;
+import com.denisov.entity.Championship;
+import com.denisov.dto.TeamDTO;
+import com.denisov.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,49 +12,49 @@ import java.util.List;
 @Service
 public class TeamService {
     private final ChampionshipService champService;
-    private final TeamDAO teamDAO;
+    private final TeamRepository teamRepository;
 
     @Autowired
-    public TeamService(ChampionshipService championshipService, TeamDAO teamDAO) {
+    public TeamService(ChampionshipService championshipService, TeamRepository teamRepository) {
         this.champService = championshipService;
-        this.teamDAO = teamDAO;
+        this.teamRepository = teamRepository;
     }
 
 
     public Team findOne(String teamId) {
         Long currentId = Long.parseLong(teamId, 10);
 
-        return teamDAO.findById(currentId).orElse(null);
+        return teamRepository.findById(currentId).orElse(null);
     }
 
     public Team findByName(String name) {
-        return teamDAO.findByName(name);
+        return teamRepository.findByName(name);
     }
 
     public List<Team> findAll(String champId) {
         Championship champ = champService.findOne(champId);
-        return teamDAO.findAllByChampionship(champ);
+        return teamRepository.findAllByChampionship(champ);
     }
 
-    public void save(TeamRepository teamRepository) {
-        Championship champ = champService.findOne(teamRepository.getChampId());
+    public void save(TeamDTO teamDTO) {
+        Championship champ = champService.findOne(teamDTO.getChampId());
         Team team = new Team();
-        team.setValues(teamRepository, champ);
-        teamDAO.save(team);
+        team.setValues(teamDTO, champ);
+        teamRepository.save(team);
     }
 
     public void save(Team team) {
-        teamDAO.save(team);
+        teamRepository.save(team);
     }
 
     public void delete(String teamId) {
         Long id = Long.parseLong(teamId, 10);
-        teamDAO.deleteById(id);
+        teamRepository.deleteById(id);
     }
 
-     public void update(TeamRepository teamRepository) {
-        Team team = this.findOne(teamRepository.getId());
-        team.setValues(teamRepository, team.getChampionship());
-        teamDAO.save(team);
+     public void update(TeamDTO teamDTO) {
+        Team team = this.findOne(teamDTO.getId());
+        team.setValues(teamDTO, team.getChampionship());
+        teamRepository.save(team);
     }
 }
