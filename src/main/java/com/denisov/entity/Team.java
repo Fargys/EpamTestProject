@@ -80,6 +80,9 @@ public class Team implements Comparable<Team>, Serializable {
         if(thisDifference > teamDifference) return -1;
         else if(thisDifference < teamDifference) return 1;
 
+        if(this.scored > team.scored) return -1;
+        else if(this.scored < team.scored) return 1;
+
         if(this.games < team.games) return -1;
         else if(this.games > team.games) return 1;
 
