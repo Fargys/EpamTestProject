@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
+import static java.util.Collections.sort;
+
 
 @Getter
 @Setter
@@ -28,10 +30,16 @@ public class Championship implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "championship", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy
     private List<Team> participants;
 
     public Championship(String name) {
         this.name = name;
+    }
+
+    public List<Team> getParticipants() {
+        if(participants != null)
+            sort(participants);
+
+        return participants;
     }
 }
