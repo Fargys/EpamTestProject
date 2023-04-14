@@ -29,25 +29,20 @@ public class StatisticsService {
         homeTeam.setGames(homeTeam.getGames() + ONE_VALUE);
         guestTeam.setGames(guestTeam.getGames() + ONE_VALUE);
 
-        switch(getWinner(homeGoals, guestGoals)) {
-
-            case HOME_TEAM:
+        switch (getWinner(homeGoals, guestGoals)) {
+            case HOME_TEAM -> {
                 win(homeTeam, homeGoals, guestGoals);
                 loss(guestTeam, guestGoals, homeGoals);
-                break;
-
-            case GUEST_TEAM:
+            }
+            case GUEST_TEAM -> {
                 win(guestTeam, guestGoals, homeGoals);
                 loss(homeTeam, homeGoals, guestGoals);
-                break;
-
-            case NO_ONE:
+            }
+            case NO_ONE -> {
                 draw(homeTeam, homeGoals, guestGoals);
                 draw(guestTeam, guestGoals, homeGoals);
-                break;
-
-            default:
-                throw new IllegalArgumentException();
+            }
+            default -> throw new IllegalArgumentException();
         }
 
         teamService.save(homeTeam);

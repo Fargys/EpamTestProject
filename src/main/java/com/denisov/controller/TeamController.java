@@ -45,22 +45,6 @@ public class TeamController {
         return "teamList";
     }
 
-    @RequestMapping(value = "/delete/{teamId}", method = RequestMethod.GET)
-    public String delete(Model model, @PathVariable("teamId") String teamId) {
-        Team team = teamService.findOne(teamId);
-        Long champId = team.getChampionship().getId();
-
-        teamService.delete(teamId);
-
-        Championship currentChampionship = champService.findOne(champId);
-        List<Team> teams = currentChampionship.getParticipants();
-
-        model.addAttribute("currentChampionship", currentChampionship);
-        model.addAttribute("teams", teams);
-
-        return "teamList";
-    }
-
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String save(@ModelAttribute TeamDTO teamDTO, Model model) {
         Championship currentChampionship;
@@ -120,6 +104,22 @@ public class TeamController {
         model.addAttribute("currentChampionship", currentChampionship);
 
         return "teamError";
+    }
+
+    @RequestMapping(value = "/delete/{teamId}", method = RequestMethod.GET)
+    public String delete(Model model, @PathVariable("teamId") String teamId) {
+        Team team = teamService.findOne(teamId);
+        Long champId = team.getChampionship().getId();
+
+        teamService.delete(teamId);
+
+        Championship currentChampionship = champService.findOne(champId);
+        List<Team> teams = currentChampionship.getParticipants();
+
+        model.addAttribute("currentChampionship", currentChampionship);
+        model.addAttribute("teams", teams);
+
+        return "teamList";
     }
 
     @RequestMapping(value = "play", method = RequestMethod.POST)

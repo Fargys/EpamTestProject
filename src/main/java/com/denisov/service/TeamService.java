@@ -43,8 +43,8 @@ public class TeamService {
         teamRepository.save(team);
     }
 
-    public void save(Team team) {
-        teamRepository.save(team);
+    public Team save(Team team) {
+        return teamRepository.save(team);
     }
 
     public void delete(String teamId) {
@@ -52,9 +52,10 @@ public class TeamService {
         teamRepository.deleteById(id);
     }
 
-     public void update(TeamDTO teamDTO) {
-        Team team = this.findOne(teamDTO.getId());
+    public Team update(TeamDTO teamDTO) {
+        Team team = findOne(teamDTO.getId());
         team.setValues(teamDTO, team.getChampionship());
-        teamRepository.save(team);
+
+        return teamRepository.save(team);
     }
 }

@@ -52,16 +52,6 @@ public class ChampionshipController {
         return "champError";
     }
 
-    @RequestMapping(value = "/delete/{champId}", method = RequestMethod.GET)
-    public String delete(@PathVariable("champId") String champId, Model model) {
-        champService.delete(champId);
-        List<Championship> championships = champService.findAll();
-
-        model.addAttribute("championships", championships);
-
-        return "championshipList";
-    }
-
     @RequestMapping(value = "/edit/{champId}", method = RequestMethod.GET)
     public String edit(@PathVariable("champId") String champId, Model model) {
         Championship currentChampionship = champService.findOne(champId);
@@ -87,5 +77,15 @@ public class ChampionshipController {
         model.addAttribute("message", message);
 
         return "champError";
+    }
+
+    @RequestMapping(value = "/delete/{champId}", method = RequestMethod.GET)
+    public String delete(@PathVariable("champId") String champId, Model model) {
+        champService.delete(champId);
+        List<Championship> championships = champService.findAll();
+
+        model.addAttribute("championships", championships);
+
+        return "championshipList";
     }
 }

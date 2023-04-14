@@ -8,6 +8,8 @@ import com.denisov.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class Validator {
 
@@ -25,6 +27,7 @@ public class Validator {
         return champ == null;
     }
 
+    @Transactional
     public boolean teamIsValid(TeamDTO teamDTO){
         Championship champ = champService.findOne(teamDTO.getChampId());
         Team team = teamService.findByName(teamDTO.getName());

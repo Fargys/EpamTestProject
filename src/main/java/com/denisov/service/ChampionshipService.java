@@ -23,7 +23,7 @@ public class ChampionshipService {
     public Championship findOne(String champId) {
         Long currentId = Long.parseLong(champId, 10);
 
-        return this.findOne(currentId);
+        return findOne(currentId);
     }
 
     public Championship findOne(Long champId) {
@@ -52,10 +52,10 @@ public class ChampionshipService {
         champRepository.deleteById(id);
     }
 
-    public void update(ChampionshipDTO champDTO) {
+    public Championship update(ChampionshipDTO champDTO) {
         Championship ch = this.findOne(champDTO.getId());
         ch.setName(champDTO.getName());
 
-        champRepository.save(ch);
+        return champRepository.save(ch);
     }
 }
