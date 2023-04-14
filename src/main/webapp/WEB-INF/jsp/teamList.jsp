@@ -66,12 +66,15 @@
                 </select>
                 </p>
 
-
+                <p>
                 <label for="homeGoals">Enter home goals:</label>
                 <input type="number" name="homeGoals" id="homeGoals" min="0" value="0">
+                </p>
 
+                <p>
                 <label for="guestGoals">Enter guest goals:</label>
                 <input type="number" name="guestGoals" id="guestGoals" min="0" value="0">
+                </p>
 
                 <button type="submit" class="btn">Play game</button>
 
@@ -82,30 +85,38 @@
 
         <form class="team-create-form" action="${pageContext.request.contextPath}/team/create" method="post">
             <fieldset>
+                <p>
                 <label for="teamName">Enter name:</label>
                 <input type="text" name="name" id="teamName" required>
-
+                </p>
+                <p>
                 <label for="games">Enter games:</label>
                 <input type="number" name="games" id="games" min="0" value="0">
-
+                </p>
+                <p>
                 <label for="wins">Enter wins:</label>
                 <input type="number" name="wins" id="wins" min="0" value="0">
-
+                </p>
+                <p>
                 <label for="draws">Enter draws:</label>
                 <input type="number" name="draws" id="draws" min="0" value="0">
-
+                </p>
+                <p>
                 <label for="losses">Enter losses:</label>
                 <input type="number" name="losses" id="losses" min="0" value="0">
-
+                </p>
+                <p>
                 <label for="scored">Enter scored:</label>
                 <input type="number" name="scored" id="scored" min="0" value="0">
-
+                </p>
+                <p>
                 <label for="missed">Enter missed:</label>
                 <input type="number" name="missed" id="missed" min="0" value="0">
-
+                </p>
+                <p>
                 <label for="points">Enter points:</label>
                 <input type="number" name="points" id="points" min="0" value="0">
-
+                </p>
                 <input type="hidden" name="champId" value="${currentChampionship.id}" />
 
                 <button type="submit" class="btn">Create team</button>
