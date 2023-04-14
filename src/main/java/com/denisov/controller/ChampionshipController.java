@@ -63,7 +63,7 @@ public class ChampionshipController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@ModelAttribute ChampionshipDTO champDTO, Model model) {
-        if(validator.champIsValid(champDTO)) {
+        if(validator.updateChampIsValid(champDTO)) {
             champService.update(champDTO);
 
             List<Championship> championships = champService.findAll();

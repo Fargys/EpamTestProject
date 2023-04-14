@@ -24,6 +24,7 @@ public class ChampionshipControllerTest {
     private static final String VALID_CHAMP_NAME   = "New champ";
     private static final String INVALID_CHAMP_NAME = "Russia";
     private static final String NEW_SPAIN_NAME     = "new Spain";
+    private static final String RUSSIA_NAME        = "Russia";
 
     private static final String RUSSIA_ID = "1";
     private static final String SPAIN_ID  = "3";
@@ -106,7 +107,7 @@ public class ChampionshipControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                 .post(UPDATE_ENDPOINT)
                 .param(PARAM_ID, SPAIN_ID)
-                .param(PARAM_NAME, NEW_SPAIN_NAME))
+                .param(PARAM_NAME, RUSSIA_NAME))
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl(ERROR_JSP));
     }

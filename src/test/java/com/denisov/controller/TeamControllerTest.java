@@ -35,6 +35,7 @@ public class TeamControllerTest {
     private static final String SPARTAK_ID         = "2";
     private static final String KRASNODAR_ID       = "3";
     private static final String NEW_LOKOMOTIV_NAME = "Loko";
+    private static final String SPARTAK_NAME       = "Spartak";
 
     private static final String PARAM_ID               = "id";
     private static final String PARAM_NAME             = "name";
@@ -44,12 +45,12 @@ public class TeamControllerTest {
     private static final String PARAM_HOME_TEAM_GOALS  = "homeGoals";
     private static final String PARAM_GUEST_TEAM_GOALS = "guestGoals";
 
-    private static final String HOME_TEAM_GOALS_COUNT = "0";
+    private static final String HOME_TEAM_GOALS_COUNT  = "0";
     private static final String GUEST_TEAM_GOALS_COUNT = "0";
 
-    private static final String LIST_JSP = "/WEB-INF/jsp/teamList.jsp";
+    private static final String LIST_JSP  = "/WEB-INF/jsp/teamList.jsp";
     private static final String ERROR_JSP = "/WEB-INF/jsp/teamError.jsp";
-    private static final String EDIT_JSP = "/WEB-INF/jsp/editTeam.jsp";;
+    private static final String EDIT_JSP  = "/WEB-INF/jsp/editTeam.jsp";;
 
 
     @Autowired
@@ -114,7 +115,7 @@ public class TeamControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                 .post(UPDATE_ENDPOINT)
                 .param(PARAM_ID, LOKOMOTIV_ID)
-                .param(PARAM_NAME, NEW_LOKOMOTIV_NAME)
+                .param(PARAM_NAME, SPARTAK_NAME)
                 .param(PARAM_CHAMP_ID, RUSSIA_ID))
                 .andExpect(status().isOk())
                 .andExpect(forwardedUrl(ERROR_JSP));

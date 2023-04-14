@@ -85,7 +85,7 @@ public class TeamController {
     public String update(@ModelAttribute TeamDTO teamDTO, Model model) {
         Championship currentChampionship;
 
-        if(validator.teamIsValid(teamDTO)) {
+        if(validator.updateTeamIsValid(teamDTO)) {
             teamService.update(teamDTO);
 
             List<Team> teams = teamService.findAll(teamDTO.getChampId());

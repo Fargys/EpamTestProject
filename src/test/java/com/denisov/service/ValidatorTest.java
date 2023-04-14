@@ -13,6 +13,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 public class ValidatorTest {
 
+    private static final String RUSSIA_NAME = "Russia";
+    private static final String RUSSIA_ID = "1";
+    private static final String RUSSIA_NEW_NAME = "RF";
+
+    private static final String LOKOMOTIV_ID = "1";
+    private static final String LOKOMOTIV_NAME = "Lokomotiv";
+    private static final String LOKOMOTIV_NEW_NAME = "Loko";
+    private static final String ENGLAND_NAME = "England";
+    private static final String SPARTAK_NAME = "Spartak";
+
     @Autowired
     private Validator validator;
 
@@ -43,6 +53,33 @@ public class ValidatorTest {
     }
 
     @Test
+    void updateChampIsValidPositiveTest() {
+        ChampionshipDTO validChamp = new ChampionshipDTO();
+        validChamp.setId(RUSSIA_ID);
+        validChamp.setName(RUSSIA_NAME);
+
+        assertTrue(validator.updateChampIsValid(validChamp));
+    }
+
+    @Test
+    void updateChampIsValidPositiveTest2() {
+        ChampionshipDTO validChamp = new ChampionshipDTO();
+        validChamp.setId(RUSSIA_ID);
+        validChamp.setName(RUSSIA_NEW_NAME);
+
+        assertTrue(validator.updateChampIsValid(validChamp));
+    }
+
+    @Test
+    void updateChampIsValidNegativeTest() {
+        ChampionshipDTO validChamp = new ChampionshipDTO();
+        validChamp.setId(RUSSIA_ID);
+        validChamp.setName(ENGLAND_NAME);
+
+        assertFalse(validator.updateChampIsValid(validChamp));
+    }
+
+    @Test
     void teamIsValidPositiveTest() {
         TeamDTO validTeam = new TeamDTO();
         validTeam.setName(VALID_TEAM_NAME);
@@ -58,6 +95,36 @@ public class ValidatorTest {
         invalidTeam.setChampId(VALID_CHAMPIONSHIP_ID);
 
         assertFalse(validator.teamIsValid(invalidTeam));
+    }
+
+    @Test
+    void updateTeamIsValidPositiveTest() {
+        TeamDTO validTeam = new TeamDTO();
+        validTeam.setId(LOKOMOTIV_ID);
+        validTeam.setName(LOKOMOTIV_NAME);
+        validTeam.setChampId(RUSSIA_ID);
+
+        assertTrue(validator.updateTeamIsValid(validTeam));
+    }
+
+    @Test
+    void updateTeamIsValidPositiveTest2() {
+        TeamDTO validTeam = new TeamDTO();
+        validTeam.setId(LOKOMOTIV_ID);
+        validTeam.setName(LOKOMOTIV_NEW_NAME);
+        validTeam.setChampId(RUSSIA_ID);
+
+        assertTrue(validator.updateTeamIsValid(validTeam));
+    }
+
+    @Test
+    void updateTeamIsValidNegativeTest() {
+        TeamDTO invalidTeam = new TeamDTO();
+        invalidTeam.setId(LOKOMOTIV_ID);
+        invalidTeam.setName(SPARTAK_NAME);
+        invalidTeam.setChampId(RUSSIA_ID);
+
+        assertFalse(validator.updateTeamIsValid(invalidTeam));
     }
 
     @Test
