@@ -29,7 +29,7 @@ public class Championship implements Serializable {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "championship", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "championship")
     private List<Team> participants;
 
     public Championship(String name) {
