@@ -68,12 +68,12 @@
 
                 <p>
                 <label for="homeGoals">Enter home goals:</label>
-                <input type="number" name="homeGoals" id="homeGoals" min="0" value="0">
+                <input type="number" name="homeGoals" id="homeGoals" min="0" value="0" required>
                 </p>
 
                 <p>
                 <label for="guestGoals">Enter guest goals:</label>
-                <input type="number" name="guestGoals" id="guestGoals" min="0" value="0">
+                <input type="number" name="guestGoals" id="guestGoals" min="0" value="0" required>
                 </p>
 
                 <button type="submit" class="btn">Play game</button>

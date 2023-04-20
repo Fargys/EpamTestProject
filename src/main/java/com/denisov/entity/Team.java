@@ -53,15 +53,15 @@ public class Team implements Comparable<Team>, Serializable {
 
 
     public void setValues(TeamDTO teamDTO, Championship champ) {
-        if(teamDTO.getId() != null) this.id = Long.parseLong(teamDTO.getId(), 10);
-        if(teamDTO.getName() != null) this.name = teamDTO.getName();
-        if(teamDTO.getGames() != null) this.games = Integer.parseInt(teamDTO.getGames());
-        if(teamDTO.getWins() != null) this.wins = Integer.parseInt(teamDTO.getWins());
-        if(teamDTO.getDraws() != null) this.draws = Integer.parseInt(teamDTO.getDraws());
-        if(teamDTO.getLosses() != null) this.losses = Integer.parseInt(teamDTO.getLosses());
-        if(teamDTO.getScored() != null) this.scored = Integer.parseInt(teamDTO.getScored());
-        if(teamDTO.getMissed() != null) this.missed = Integer.parseInt(teamDTO.getMissed());
-        if(teamDTO.getPoints() != null) this.points = Integer.parseInt(teamDTO.getPoints());
+        if(isCorrect(teamDTO.getId())) this.id = Long.parseLong(teamDTO.getId(), 10);
+        if(isCorrect(teamDTO.getName())) this.name = teamDTO.getName();
+        if(isCorrect(teamDTO.getGames())) this.games = Integer.parseInt(teamDTO.getGames());
+        if(isCorrect(teamDTO.getWins())) this.wins = Integer.parseInt(teamDTO.getWins());
+        if(isCorrect(teamDTO.getDraws())) this.draws = Integer.parseInt(teamDTO.getDraws());
+        if(isCorrect(teamDTO.getLosses())) this.losses = Integer.parseInt(teamDTO.getLosses());
+        if(isCorrect(teamDTO.getScored())) this.scored = Integer.parseInt(teamDTO.getScored());
+        if(isCorrect(teamDTO.getMissed())) this.missed = Integer.parseInt(teamDTO.getMissed());
+        if(isCorrect(teamDTO.getPoints())) this.points = Integer.parseInt(teamDTO.getPoints());
         if(champ != null) this.championship = champ;
     }
 
@@ -87,5 +87,9 @@ public class Team implements Comparable<Team>, Serializable {
         else if(this.games > team.games) return 1;
 
         return 0;
+    }
+
+    private boolean isCorrect(String param) {
+        return param != null && !param.isBlank();
     }
 }
