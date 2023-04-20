@@ -7,8 +7,8 @@ import com.denisov.dto.TeamDTO;
 import com.denisov.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 public class Validator {

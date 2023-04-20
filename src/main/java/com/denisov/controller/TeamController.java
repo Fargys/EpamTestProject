@@ -33,7 +33,7 @@ public class TeamController {
         this.validator = validator;
     }
 
-    @RequestMapping(value = { "/list/{champId}" }, method = RequestMethod.GET)
+    @GetMapping(value = { "/list/{champId}" })
     public String list(Model model, @PathVariable("champId") String champId) {
 
         Championship currentChampionship = champService.findOne(champId);
@@ -45,7 +45,7 @@ public class TeamController {
         return "teamList";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping(value = "/create")
     public String save(@ModelAttribute TeamDTO teamDTO, Model model) {
         Championship currentChampionship;
 
@@ -70,7 +70,7 @@ public class TeamController {
         return "teamError";
     }
 
-    @RequestMapping(value = "/edit/{teamId}", method = RequestMethod.GET)
+    @GetMapping(value = "/edit/{teamId}")
     public String edit(@PathVariable("teamId") String teamId, Model model) {
         Team currentTeam = teamService.findOne(teamId);
         Championship currentChampionship = currentTeam.getChampionship();
@@ -81,7 +81,7 @@ public class TeamController {
         return "editTeam";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     public String update(@ModelAttribute TeamDTO teamDTO, Model model) {
         Championship currentChampionship;
 
@@ -106,7 +106,7 @@ public class TeamController {
         return "teamError";
     }
 
-    @RequestMapping(value = "/delete/{teamId}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete/{teamId}")
     public String delete(Model model, @PathVariable("teamId") String teamId) {
         Team team = teamService.findOne(teamId);
         Long champId = team.getChampionship().getId();
@@ -122,7 +122,7 @@ public class TeamController {
         return "teamList";
     }
 
-    @RequestMapping(value = "play", method = RequestMethod.POST)
+    @PostMapping(value = "play")
     public String play(@ModelAttribute("result") ResultDTO resultDTO, Model model) {
         Championship currentChampionship;
 

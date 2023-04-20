@@ -25,7 +25,7 @@ public class ChampionshipController {
     }
 
 
-    @RequestMapping(value = {"/", "/list"} , method = RequestMethod.GET)
+    @GetMapping(value = {"/", "/list"})
     public String list(Model model) {
         List<Championship> championships = champService.findAll();
 
@@ -34,7 +34,7 @@ public class ChampionshipController {
         return "championshipList";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping(value = "/create")
      public String save(@ModelAttribute ChampionshipDTO champDTO, Model model) {
         if(validator.champIsValid(champDTO)) {
             champService.save(champDTO);
@@ -52,7 +52,7 @@ public class ChampionshipController {
         return "champError";
     }
 
-    @RequestMapping(value = "/edit/{champId}", method = RequestMethod.GET)
+    @GetMapping(value = "/edit/{champId}")
     public String edit(@PathVariable("champId") String champId, Model model) {
         Championship currentChampionship = champService.findOne(champId);
 
@@ -61,7 +61,7 @@ public class ChampionshipController {
         return "editChamp";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     public String update(@ModelAttribute ChampionshipDTO champDTO, Model model) {
         if(validator.updateChampIsValid(champDTO)) {
             champService.update(champDTO);
@@ -79,7 +79,7 @@ public class ChampionshipController {
         return "champError";
     }
 
-    @RequestMapping(value = "/delete/{champId}", method = RequestMethod.GET)
+    @GetMapping(value = "/delete/{champId}")
     public String delete(@PathVariable("champId") String champId, Model model) {
         champService.delete(champId);
         List<Championship> championships = champService.findAll();

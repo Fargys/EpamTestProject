@@ -4,6 +4,7 @@ import com.denisov.dto.ResultDTO;
 import com.denisov.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class StatisticsService {
@@ -20,6 +21,7 @@ public class StatisticsService {
         this.teamService = teamService;
     }
 
+    @Transactional
     public void playGame(ResultDTO resultDTO) {
         Team homeTeam = teamService.findOne(resultDTO.getHomeTeamId());
         Team guestTeam = teamService.findOne(resultDTO.getGuestTeamId());
