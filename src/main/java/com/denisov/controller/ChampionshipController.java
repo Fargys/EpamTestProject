@@ -15,6 +15,17 @@ import java.util.List;
 @RequestMapping(value = {"/", "/championship"})
 public class ChampionshipController {
 
+    private static final String CHAMP_LIST_JSP  = "championshipList";
+    private static final String CHAMP_ERROR_JSP = "champError";
+    private static final String EDIT_CHAMP_JSP  = "editChamp";
+
+    private static final String ATTR_CHAMPIONSHIPS        = "championships";
+    private static final String ATTR_CURRENT_CHAMPIONSHIP = "currentChampionship";
+    private static final String ATTR_MESSAGE              = "message";
+
+    private static final String ERROR_MESSAGE = "Championship already exists";
+
+
     private final ChampionshipService champService;
     private final Validator validator;
 
@@ -29,9 +40,9 @@ public class ChampionshipController {
     public String list(Model model) {
         List<Championship> championships = champService.findAll();
 
-        model.addAttribute("championships", championships);
+        model.addAttribute(ATTR_CHAMPIONSHIPS, championships);
 
-        return "championshipList";
+        return CHAMP_LIST_JSP;
     }
 
     @PostMapping(value = "/create")
@@ -41,24 +52,23 @@ public class ChampionshipController {
 
             List<Championship> championships = champService.findAll();
 
-            model.addAttribute("championships", championships);
+            model.addAttribute(ATTR_CHAMPIONSHIPS, championships);
 
-            return "championshipList";
+            return CHAMP_LIST_JSP;
         }
 
-        String message = "Championship already exists";
-        model.addAttribute("message", message);
+        model.addAttribute(ATTR_MESSAGE, ERROR_MESSAGE);
 
-        return "champError";
+        return CHAMP_ERROR_JSP;
     }
 
     @GetMapping(value = "/edit/{champId}")
     public String edit(@PathVariable("champId") String champId, Model model) {
         Championship currentChampionship = champService.findOne(champId);
 
-        model.addAttribute("currentChampionship", currentChampionship);
+        model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
 
-        return "editChamp";
+        return EDIT_CHAMP_JSP;
     }
 
     @PostMapping(value = "/update")
@@ -68,15 +78,14 @@ public class ChampionshipController {
 
             List<Championship> championships = champService.findAll();
 
-            model.addAttribute("championships", championships);
+            model.addAttribute(ATTR_CHAMPIONSHIPS, championships);
 
-            return "championshipList";
+            return CHAMP_LIST_JSP;
         }
 
-        String message = "Championship already exists";
-        model.addAttribute("message", message);
+        model.addAttribute(ATTR_MESSAGE, ERROR_MESSAGE);
 
-        return "champError";
+        return CHAMP_ERROR_JSP;
     }
 
     @GetMapping(value = "/delete/{champId}")
@@ -84,8 +93,8 @@ public class ChampionshipController {
         champService.delete(champId);
         List<Championship> championships = champService.findAll();
 
-        model.addAttribute("championships", championships);
+        model.addAttribute(ATTR_CHAMPIONSHIPS, championships);
 
-        return "championshipList";
+        return CHAMP_LIST_JSP;
     }
 }

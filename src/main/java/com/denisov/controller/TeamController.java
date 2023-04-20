@@ -19,6 +19,19 @@ import java.util.List;
 @RequestMapping(value = "/team")
 public class TeamController {
 
+    private static final String TEAM_LIST_JSP  = "teamList";
+    private static final String TEAM_ERROR_JSP = "teamError";
+    private static final String EDIT_TEAM_JSP  = "editTeam";
+
+    private static final String ATTR_CURRENT_CHAMPIONSHIP = "currentChampionship";
+    private static final String ATTR_TEAMS                = "teams";
+    private static final String ATTR_MESSAGE              = "message";
+    private static final String ATTR_CURRENT_TEAM         = "currentTeam";
+
+    private static final String TEAM_ERROR_MESSAGE = "Team already exists";
+    private static final String PLAY_ERROR_MESSAGE = "You chose the same team";
+
+
     private final TeamService teamService;
     private final ChampionshipService champService;
     private final StatisticsService statService;
@@ -39,10 +52,10 @@ public class TeamController {
         Championship currentChampionship = champService.findOne(champId);
         List<Team> teams = currentChampionship.getParticipants();
 
-        model.addAttribute("currentChampionship", currentChampionship);
-        model.addAttribute("teams", teams);
+        model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
+        model.addAttribute(ATTR_TEAMS, teams);
 
-        return "teamList";
+        return TEAM_LIST_JSP;
     }
 
     @PostMapping(value = "/create")
@@ -55,19 +68,18 @@ public class TeamController {
             List<Team> teams = teamService.findAll(teamDTO.getChampId());
             currentChampionship = teams.get(0).getChampionship();
 
-            model.addAttribute("currentChampionship", currentChampionship);
-            model.addAttribute("teams", teams);
+            model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
+            model.addAttribute(ATTR_TEAMS, teams);
 
-            return "teamList";
+            return TEAM_LIST_JSP;
         }
 
-        String message = "Team already exists";
         currentChampionship = champService.findOne(teamDTO.getChampId());
 
-        model.addAttribute("message", message);
-        model.addAttribute("currentChampionship", currentChampionship);
+        model.addAttribute(ATTR_MESSAGE, TEAM_ERROR_MESSAGE);
+        model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
 
-        return "teamError";
+        return TEAM_ERROR_JSP;
     }
 
     @GetMapping(value = "/edit/{teamId}")
@@ -75,10 +87,10 @@ public class TeamController {
         Team currentTeam = teamService.findOne(teamId);
         Championship currentChampionship = currentTeam.getChampionship();
 
-        model.addAttribute("currentTeam", currentTeam);
-        model.addAttribute("currentChampionship", currentChampionship);
+        model.addAttribute(ATTR_CURRENT_TEAM, currentTeam);
+        model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
 
-        return "editTeam";
+        return EDIT_TEAM_JSP;
     }
 
     @PostMapping(value = "/update")
@@ -91,19 +103,18 @@ public class TeamController {
             List<Team> teams = teamService.findAll(teamDTO.getChampId());
             currentChampionship = teams.get(0).getChampionship();
 
-            model.addAttribute("currentChampionship", currentChampionship);
-            model.addAttribute("teams", teams);
+            model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
+            model.addAttribute(TeamController.ATTR_TEAMS, teams);
 
-            return "teamList";
+            return TEAM_LIST_JSP;
         }
 
-        String message = "Team already exists";
         currentChampionship = champService.findOne(teamDTO.getChampId());
 
-        model.addAttribute("message", message);
-        model.addAttribute("currentChampionship", currentChampionship);
+        model.addAttribute(ATTR_MESSAGE, TEAM_ERROR_MESSAGE);
+        model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
 
-        return "teamError";
+        return TEAM_ERROR_JSP;
     }
 
     @GetMapping(value = "/delete/{teamId}")
@@ -116,10 +127,10 @@ public class TeamController {
         Championship currentChampionship = champService.findOne(champId);
         List<Team> teams = currentChampionship.getParticipants();
 
-        model.addAttribute("currentChampionship", currentChampionship);
-        model.addAttribute("teams", teams);
+        model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
+        model.addAttribute(ATTR_TEAMS, teams);
 
-        return "teamList";
+        return TEAM_LIST_JSP;
     }
 
     @PostMapping(value = "play")
@@ -132,18 +143,17 @@ public class TeamController {
             currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
             List<Team> teams = currentChampionship.getParticipants();
 
-            model.addAttribute("currentChampionship", currentChampionship);
-            model.addAttribute("teams", teams);
+            model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
+            model.addAttribute(ATTR_TEAMS, teams);
 
-            return "teamList";
+            return TEAM_LIST_JSP;
         }
 
-        String message = "You chose the same team";
         currentChampionship = teamService.findOne(resultDTO.getHomeTeamId()).getChampionship();
 
-        model.addAttribute("message", message);
-        model.addAttribute("currentChampionship", currentChampionship);
+        model.addAttribute(ATTR_MESSAGE, PLAY_ERROR_MESSAGE);
+        model.addAttribute(ATTR_CURRENT_CHAMPIONSHIP, currentChampionship);
 
-        return "teamError";
+        return TEAM_ERROR_JSP;
     }
 }
